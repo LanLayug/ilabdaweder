@@ -8,17 +8,29 @@
     crossorigin="anonymous"> 
     <!-- CSS -->
     <style>
-      div#bacolor {border: 1px #d2d2d2 solid; margin: 16px; padding: 8px;}
+      div#current {
+        border: 1px #d2d2d2 solid;
+        margin: 16px;
+        padding: 8px;
+      }
     </style>
     <!-- END --->
   </head>
   <body>
+    <!-- current weather -->
     <div class="container">
-      <div id="bacolor">
-        <div><span id="city"></span><span>,&nbsp;Pampanga</span></div>
-        <div><img src="" id="icon"/><span id="weather"></span></div>
-        <div><span>Temperature:&nbsp;</span><span id="temp"></span><span>&nbsp;&deg;C</span></div>
-        <div><span>Wind:&nbsp;</span><span id="wind_speed"></span><span>&nbsp;M/S</span></div>
+      <div id="current">
+        <div><h2 id="city"></h2></div>
+        <div><h6 id="time"></h6></div>
+        <div><img src="" id="icon" height="72"/><span id="weather"></span></div>
+        <div><h6 id="temp"></h6></div>
+        <div><h6 id="humidity"></h6></div>
+        <div><h6 id="wind_speed"></h6></div>
+      </div>
+      <!-- weather forecast -->
+      <div class="forecast">
+        <div class="day-1">
+        </div>
       </div>
     </div>
     <script src="main.js"></script>
