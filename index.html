@@ -8,9 +8,9 @@
     crossorigin="anonymous"> 
     <!-- CSS -->
     <style>
-      div#current {
+      .box {
         border: 1px #d2d2d2 solid;
-        margin: 16px;
+        margin: 8px;
         padding: 8px;
       }
     </style>
@@ -18,20 +18,20 @@
   </head>
   <body>
     <!-- current weather -->
-    <div class="container">
-      <div id="current">
-        <div><h2 id="city"></h2></div>
-        <div><h6 id="time"></h6></div>
-        <div><img src="" id="icon" height="72"/><span id="weather"></span></div>
-        <div><h6 id="temp"></h6></div>
-        <div><h6 id="humidity"></h6></div>
-        <div><h6 id="wind_speed"></h6></div>
-      </div>
-      <!-- weather forecast -->
-      <div class="forecast">
-        <div class="day-1">
+    <div class="container-fluid">
+      <div class="box row">
+        <div class="col">
+          <h4 id="city"></h4>
+          <h6 id="time"></h6>
+          <img src="" id="icon" height="72"/><span id="weather"></span>
+          <h6 id="current_temp"></h6>
+          <h6 id="humidity"></h6>
+          <h6 id="wind_speed"></h6>
         </div>
       </div>
+    </div>
+      <!-- weather forecast -->
+    <div id="forecast" class="container-fluid">
     </div>
     <script src="main.js"></script>
   </body>
