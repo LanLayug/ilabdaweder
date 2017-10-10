@@ -3,12 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-    crossorigin="anonymous"> 
+    <link rel="stylesheet" href="bulma.css">
     <!-- CSS -->
     <style>
-      .box {
+      .biiox {
         border: 1px #d2d2d2 solid;
         margin: 8px;
         padding: 8px;
@@ -18,20 +16,10 @@
   </head>
   <body>
     <!-- current weather -->
-    <div class="container-fluid">
-      <div class="box row">
-        <div class="col">
-          <h4 id="city"></h4>
-          <h6 id="time"></h6>
-          <img src="" id="icon" height="72"/><span id="weather"></span>
-          <h6 id="current_temp"></h6>
-          <h6 id="humidity"></h6>
-          <h6 id="wind_speed"></h6>
-        </div>
-      </div>
+    <div id="current" class="columns is-centered">
     </div>
-      <!-- weather forecast -->
-    <div id="forecast" class="container-fluid">
+    <!-- weather forecast -->
+    <div id="forecast" class="columns is-mobile is-multiline">
     </div>
     <script src="main.js"></script>
   </body>
