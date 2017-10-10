@@ -3,24 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="bulma.css">
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <!-- CSS -->
     <style>
-      .biiox {
-        border: 1px #d2d2d2 solid;
-        margin: 8px;
-        padding: 8px;
-      }
+    div#current {
+    color: #000000;
+    opacity: 0.85;
+    border: 1px solid #e5e5e5;
+    margin: 32px auto;}
+
+    div#forecast {
+    color: #000000;
+    opacity: 0.67;}
     </style>
     <!-- END --->
   </head>
   <body>
     <!-- current weather -->
-    <div id="current" class="columns is-centered">
-    </div>
-    <!-- weather forecast -->
-    <div id="forecast" class="columns is-mobile is-multiline">
+    <div class="container">
+      <div id="current" class="row">
+      </div>
+      <!-- weather forecast -->
+      <div id="forecast" class="row"> 
+      </div>
     </div>
     <script src="main.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
   </body>
 </html>

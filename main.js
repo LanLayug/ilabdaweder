@@ -67,14 +67,14 @@ window.onload = function(){
         var day = days[ms.getDay()];
         var date  = ms.getDate();
         var hours = ms.getHours();
-        var ampm = hours >= 12 ? "PM" : "AM";
+        var ampm = hours >= 12 ? "pm" : "am";
         var hour = function(hours){
             var x = hours % 12;
             var y = x == 0 ? 12 : x;
             return y;
         };
         var min = ("0"+ms.getMinutes()).slice(-2);
-        var time = day+" "+"<small>"+hour(hours)+":"+min+" "+ampm+"<br>"+month+" "+date+", "+year+"</small>";
+        var time = [day, hour(hours), min, ampm, month, date, year];
         return time;
     };
 
@@ -84,22 +84,25 @@ window.onload = function(){
     };
 
     var weather_current_html = function(el, city, time, icon, desc, temp, humid, wind){
+        var time_array = convert_time(time);
         var output_html = el.innerHTML  = 
-        '<div class="column">'+
-            '<h4>'+city+', Pampanga'+'</h4>'+
-            '<h6>'+convert_time(time)+'</h6>'+
-            '<img src="http://openweathermap.org/img/w/'+icon+'.png"/>'+'<span>'+desc+'</span>'+
-            '<h6>'+'Temperature: '+Math.round(temp)+'&nbsp;&deg;C'+
-            '<h6>'+'Humidity: '+humid+'%'+
-            '<h6>'+'Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+
+        '<div class="col">'+
+            '<h4 class="">'+city+', Pampanga'+'</h4>'+
+            '<h5><span>'+time_array[0]+'</span><small class="text-muted">'+' '+time_array[1]+':'+time_array[2]+' '+time_array[3]+
+            ' '+time_array[4]+' '+time_array[5]+', '+time_array[6]+'</small></h5>'+
+            '<h5 class="text-capitalize">'+desc+'</h5>'+
+            '<h4><img src="http://openweathermap.org/img/w/'+icon+'.png"/><span>'+'&nbsp;'+Math.round(temp)+'&nbsp;&deg;C</span></h4>'+
+            '<h6>Humidity: '+humid+'%'+
+            '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+
         '</div>';
         return output_html;
     };
 
     var weather_forecast_html = function(el, date, icon, temp){
         var output_html = el.innerHTML +=
-        '<div class="column is-narrow">'+
-            '<h6>'+date+'</h6>'+'<img src="http://openweathermap.org/img/w/'+icon+'.png"/>'+
+        '<div class="col-6 col-sm-4 col-md-3 col-lg-2">'+
+            '<h6>'+date[0]+' '+ date[1]+':'+date[2]+' '+date[3]+'</h6>'+
+            '<img src="http://openweathermap.org/img/w/'+icon+'.png"/>'+
             '<h6>'+temp+'&nbsp;'+'&deg;C'+'</h6>'+
         '</div>';
         return output_html;
