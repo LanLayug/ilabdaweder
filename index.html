@@ -3,30 +3,36 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css"> -->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <!-- CSS -->
     <style>
-    div#current {
-    color: #000000;
-    opacity: 0.85;
-    border: 1px solid #e5e5e5;
-    margin: 32px auto;}
+      body {
+      background-color:#0e232e;}
 
-    div#forecast {
+      #current {
+      background-color: #161821;}
+
+    .white {
+    color: #FFFFFF;
+    opacity: 0.70;}
+
+    .gray {
     color: #000000;
     opacity: 0.67;}
+
+    .box {
+    border: 2px solid #0e232e;}
     </style>
     <!-- END --->
   </head>
   <body>
     <!-- current weather -->
     <div class="container">
-      <div id="current" class="row">
+      <div id="current" class="row box white mt-5 pt-4 pb-4 pl-4">
       </div>
       <!-- weather forecast -->
-      <div id="forecast" class="row"> 
+      <div id="forecast" class="row gray"> 
       </div>
     </div>
     <script src="main.js"></script>

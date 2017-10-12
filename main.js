@@ -38,14 +38,12 @@ window.onload = function(){
         request.onload = function(){
             if (request.status >= 200 && request.status < 400){
                 var data = JSON.parse(request.responseText);
-                console.log(data);
-                //var data_array = data.list;
                 var el_forecast = document.getElementById("forecast");
-                for (let i = 0; i < data.list.length; i++){
+                for (let i = 0, l = data.list.length; i < l; i++){
                     var next_date = (convert_time(data.list[i].dt));
                     var f_icon = data.list[i].weather[0].icon;
                     var f_temp = Math.round(data.list[i].main.temp);
-                    weather_forecast_html(el_forecast, next_date, f_icon, f_temp);
+                    weather_forecast_html(el_forecast, next_date, f_icon, f_temp,bg_color());
                 };
             } else {
                 console.log("connection established but server returned an error. Check the URL or your API calls");
@@ -98,13 +96,24 @@ window.onload = function(){
         return output_html;
     };
 
-    var weather_forecast_html = function(el, date, icon, temp){
+    var weather_forecast_html = function(el, date, icon, temp, bg){
         var output_html = el.innerHTML +=
-        '<div class="col-6 col-sm-4 col-md-3 col-lg-2">'+
+        '<div class="box text-center pt-4 pb-4 col-6 col-sm-4 col-md-3 col-lg-2" style="background-color:'+bg+'">'+
             '<h6>'+date[0]+' '+ date[1]+':'+date[2]+' '+date[3]+'</h6>'+
             '<img src="http://openweathermap.org/img/w/'+icon+'.png"/>'+
             '<h6>'+temp+'&nbsp;'+'&deg;C'+'</h6>'+
         '</div>';
         return output_html;
     };
+
+    var bg_color = function(){
+        var colors = [
+            'fce94f','edd400','c4a000','8ae234','73d216','4e9a06','fcaf3e',
+            'f57900','ce5c00','729fcf','3465a4','204a87','ad7fa8','75507b',
+            '5c3566','e9b96e','c17d11','8f5902','ef2929','cc0000','a40000'];
+
+        var bg = Math.floor(Math.random()*(colors.length));
+        return '#'+colors[bg];
+    };
+    console.log(bg_color());
 };
