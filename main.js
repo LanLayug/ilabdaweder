@@ -89,7 +89,7 @@ window.onload = function(){
             '<h5><span>'+time_array[0]+'</span><small class="text-muted">'+' '+time_array[1]+':'+time_array[2]+' '+time_array[3]+
             ' '+time_array[4]+' '+time_array[5]+', '+time_array[6]+'</small></h5>'+
             '<h5 class="text-capitalize">'+desc+'</h5>'+
-            '<h4><img src="http://openweathermap.org/img/w/'+icon+'.png"/><span>'+'&nbsp;'+Math.round(temp)+'&nbsp;&deg;C</span></h4>'+
+            '<h4><img src="https://openweathermap.org/img/w/'+icon+'.png"/><span>'+'&nbsp;'+Math.round(temp)+'&nbsp;&deg;C</span></h4>'+
             '<h6>Humidity: '+humid+'%'+
             '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+
         '</div>';
@@ -100,7 +100,7 @@ window.onload = function(){
         var output_html = el.innerHTML +=
         '<div class="box text-center pt-4 pb-4 col-6 col-sm-4 col-md-3 col-lg-2" style="background-color:'+bg+'">'+
             '<h6>'+date[0]+' '+ date[1]+':'+date[2]+' '+date[3]+'</h6>'+
-            '<img src="http://openweathermap.org/img/w/'+icon+'.png"/>'+
+            '<img src="https://openweathermap.org/img/w/'+icon+'.png"/>'+
             '<h6>'+temp+'&nbsp;'+'&deg;C'+'</h6>'+
         '</div>';
         return output_html;
