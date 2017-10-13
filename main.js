@@ -43,7 +43,8 @@ window.onload = function(){
                     var next_date = (convert_time(data.list[i].dt));
                     var f_icon = data.list[i].weather[0].icon;
                     var f_temp = Math.round(data.list[i].main.temp);
-                    weather_forecast_html(el_forecast, next_date, f_icon, f_temp,bg_color());
+                    var f_weather = data.list[i].weather[0].description;
+                    weather_forecast_html(el_forecast, next_date, f_icon, f_temp, f_weather, bg_color());
                 };
             } else {
                 console.log("connection established but server returned an error. Check the URL or your API calls");
@@ -96,13 +97,14 @@ window.onload = function(){
         return output_html;
     };
 
-    var weather_forecast_html = function(el, date, icon, temp, bg){
+    var weather_forecast_html = function(el, date, icon, temp, forecast, bg){
         var output_html = el.innerHTML +=
         '<div class="box text-center pt-4 pb-4 col-6 col-sm-4 col-md-3 col-lg-2" style="background-color:'+bg+'">'+
             '<h6>'+date[0]+' '+ date[1]+':'+date[2]+' '+date[3]+'</h6>'+
-            '<img src="https://openweathermap.org/img/w/'+icon+'.png"/>'+
+            '<img src="https://openweathermap.org/img/w/'+icon+'.png" title="'+forecast+'"/>'+
             '<h6>'+temp+'&nbsp;'+'&deg;C'+'</h6>'+
         '</div>';
+        console.log(forecast);
         return output_html;
     };
 
