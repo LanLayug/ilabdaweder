@@ -11,7 +11,6 @@ window.onload = function(){
         request.onload = function(){
             if (request.status >= 200 && request.status < 400){
                 var myData = JSON.parse(request.responseText);
-                console.log(myData);
                 var city = myData.name;
                 var current_time = myData.dt;
                 var weather = myData.weather[0].description;
@@ -46,7 +45,7 @@ window.onload = function(){
                     var f_icon = data.list[i].weather[0].icon;
                     var f_temp = Math.round(data.list[i].main.temp);
                     var f_weather = data.list[i].weather[0].description;
-                    weather_forecast_html(el_forecast, next_date, f_icon, f_temp, f_weather, bg_color());
+                    weather_forecast_html(el_forecast, next_date, f_icon, f_temp, f_weather, bg_color(f_temp));
                 };
             } else {
                 console.log("connection established but server returned an error. Check the URL or your API calls");
@@ -85,22 +84,22 @@ window.onload = function(){
     };
 
     var convert_deg_direction = function(wind_deg){
-        if ((wind_deg >= 348.75 && wind_deg <= 360) || (wind_deg >= 0 && wind_deg < 11.25)){return "N"}
-        else if (wind_deg >= 11.25 && wind_deg < 33.75){return "NNE"}
-        else if (wind_deg >= 33.75 && wind_deg < 56.25){return "NE"}
-        else if (wind_deg >=  56.25 && wind_deg < 78.75){return "ENE"}
-        else if (wind_deg >=  78.75 && wind_deg < 101.25){return "E"}
-        else if (wind_deg >=  101.25 && wind_deg < 123.75){return "ESE"}
-        else if (wind_deg >=  123.75 && wind_deg < 146.25){return "SE"}
-        else if (wind_deg >=  146.25 && wind_deg < 168.75){return "SSE"}
-        else if (wind_deg >=  168.75 && wind_deg < 191.25){return "S"}
-        else if (wind_deg >=  191.25 && wind_deg < 213.75){return "SSW"}
-        else if (wind_deg >=  213.75 && wind_deg < 236.25){return "SW"}
-        else if (wind_deg >=  236.25 && wind_deg < 258.75){return "WSW"}
-        else if (wind_deg >=  258.75 && wind_deg < 281.25){return "W"}
-        else if (wind_deg >=  281.25 && wind_deg < 303.75){return "WNW"}
-        else if (wind_deg >=  303.75 && wind_deg < 326.25){return "NW"}
-        else if (wind_deg >=  326.25 && wind_deg < 348.75){return "NNW"}
+        if ((wind_deg >= 348.75 && wind_deg <= 360) || (wind_deg >= 0 && wind_deg < 11.25)){return '&#x2191'+'N';}
+        else if (wind_deg >= 11.25 && wind_deg < 33.75){return '&#x2197'+' NNE';}
+        else if (wind_deg >= 33.75 && wind_deg < 56.25){return '&#x2197'+' NE';}
+        else if (wind_deg >=  56.25 && wind_deg < 78.75){return '&#x2197'+' ENE';}
+        else if (wind_deg >=  78.75 && wind_deg < 101.25){return '&#x2192'+' E';}
+        else if (wind_deg >=  101.25 && wind_deg < 123.75){return '&#x2198'+' ESE';}
+        else if (wind_deg >=  123.75 && wind_deg < 146.25){return '&#x2198'+' SE';}
+        else if (wind_deg >=  146.25 && wind_deg < 168.75){return '&#x2198'+' SSE';}
+        else if (wind_deg >=  168.75 && wind_deg < 191.25){return '&#x2193;'+' S';}
+        else if (wind_deg >=  191.25 && wind_deg < 213.75){return '&#x2199;'+' SSW';}
+        else if (wind_deg >=  213.75 && wind_deg < 236.25){return '&#x2199;'+' SW';}
+        else if (wind_deg >=  236.25 && wind_deg < 258.75){return '&#x2199;'+' WSW';}
+        else if (wind_deg >=  258.75 && wind_deg < 281.25){return '&#x2190;'+' W';}
+        else if (wind_deg >=  281.25 && wind_deg < 303.75){return '&#x2196;'+' WNW';}
+        else if (wind_deg >=  303.75 && wind_deg < 326.25){return '&#x2196;'+' NW';}
+        else if (wind_deg >=  326.25 && wind_deg < 348.75){return '&#x2196;'+' NNW';}
     };
 
     var weather_current_html = function(el, city, time, icon, desc, temp, humid, wind, degree){
@@ -108,14 +107,13 @@ window.onload = function(){
         var output_html = el.innerHTML  = 
         '<div class="col">'+
             '<h4 class="">'+city+', Pampanga'+'</h4>'+
-            '<h5><span>'+time_array[0]+'</span><small class="text-muted">'+' '+time_array[1]+':'+time_array[2]+' '+time_array[3]+
+            '<h5><span>'+time_array[0]+'</span><small>'+' '+time_array[1]+':'+time_array[2]+' '+time_array[3]+
             ' '+time_array[4]+' '+time_array[5]+', '+time_array[6]+'</small></h5>'+
             '<h5 class="text-capitalize">'+desc+'</h5>'+
             '<h4><img src="https://openweathermap.org/img/w/'+icon+'.png"/><span>'+'&nbsp;'+Math.round(temp)+'&nbsp;&deg;C</span></h4>'+
             '<h6>Humidity: '+humid+'%'+
-            '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+' '+'<i class="fa fa-compass fa-lg text-muted"></i>'+' '+convert_deg_direction(degree)+
+            '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+' '+convert_deg_direction(degree)+
         '</div>';
-        console.log(degree);
         return output_html;
     };
 
@@ -123,21 +121,29 @@ window.onload = function(){
         var output_html = el.innerHTML +=
         '<div class="box text-center pt-4 pb-4 col-6 col-sm-4 col-md-3 col-lg-2" style="background-color:'+bg+'">'+
             '<h6>'+date[0]+' '+ date[1]+':'+date[2]+' '+date[3]+'</h6>'+
-            '<img src="https://openweathermap.org/img/w/'+icon+'.png" title="'+forecast+'"/>'+
+            '<img src="https://openweathermap.org/img/w/'+icon+'.png" ontouchstart title="'+forecast+'"/>'+
             '<h6>'+temp+'&nbsp;'+'&deg;C'+'</h6>'+
         '</div>';
-        console.log(forecast);
         return output_html;
     };
 
-    var bg_color = function(){
-        var colors = [
-            'fce94f','edd400','c4a000','8ae234','73d216','4e9a06','fcaf3e',
-            'f57900','ce5c00','729fcf','3465a4','204a87','ad7fa8','75507b',
-            '5c3566','e9b96e','c17d11','8f5902','ef2929','cc0000','a40000'];
+    var bg_color = function(temp){
+        var cool = [
+            '729fcf','3465a4','204a87','003399','3366cc', '6699ff', '2a7fff', 
+            '003371', '14457c', '3655a3', '003371', '0050dc', '0080e8', '0044d8', 
+            '3139ae', '252b82', '3139ae', '1927a6', '1b248f'];
 
-        var bg = Math.floor(Math.random()*(colors.length));
-        return '#'+colors[bg];
+        var warm = [
+            'dd4814', 'e05a2c', 'e46d43', 'e77f5b', '552200', '803300', 'aa4400',
+            'd45500', '502d16', '784421', 'a05a2c', 'c87137', '501616', '782121',
+            'a02c2c', 'c83737'];
+
+        if (temp > 27){
+            var bg = Math.floor(Math.random()*(warm.length));
+            return '#'+warm[bg];
+        } else {
+            var bg = Math.floor(Math.random()*(cool.length));
+            return '#'+cool[bg];
+        };
     };
-    console.log(bg_color());
 };
