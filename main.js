@@ -11,15 +11,17 @@ window.onload = function(){
         request.onload = function(){
             if (request.status >= 200 && request.status < 400){
                 var myData = JSON.parse(request.responseText);
+                console.log(myData);
                 var city = myData.name;
                 var current_time = myData.dt;
                 var weather = myData.weather[0].description;
                 var temp = myData.main.temp;
                 var humidity = myData.main.humidity;
                 var wind_speed = myData.wind.speed;
+                var wind_direction = myData.wind.deg;
                 var icon = myData.weather[0].icon;
-                var el_current = document.getElementById("current");
-                weather_current_html(el_current, city, current_time, icon, weather, temp, humidity, wind_speed);
+                var el_current = document.getElementById("weather-current");
+                weather_current_html(el_current, city, current_time, icon, weather, temp, humidity, wind_speed, wind_direction);
             } else {
                 console.log("connection established but server returned an error. Check the URL or your API calls");
             };
@@ -38,7 +40,7 @@ window.onload = function(){
         request.onload = function(){
             if (request.status >= 200 && request.status < 400){
                 var data = JSON.parse(request.responseText);
-                var el_forecast = document.getElementById("forecast");
+                var el_forecast = document.getElementById("weather-forecast");
                 for (let i = 0, l = data.list.length; i < l; i++){
                     var next_date = (convert_time(data.list[i].dt));
                     var f_icon = data.list[i].weather[0].icon;
@@ -82,7 +84,26 @@ window.onload = function(){
         return kph;
     };
 
-    var weather_current_html = function(el, city, time, icon, desc, temp, humid, wind){
+    var convert_deg_direction = function(wind_deg){
+        if ((wind_deg >= 348.75 && wind_deg <= 360) || (wind_deg >= 0 && wind_deg < 11.25)){return "N"}
+        else if (wind_deg >= 11.25 && wind_deg < 33.75){return "NNE"}
+        else if (wind_deg >= 33.75 && wind_deg < 56.25){return "NE"}
+        else if (wind_deg >=  56.25 && wind_deg < 78.75){return "ENE"}
+        else if (wind_deg >=  78.75 && wind_deg < 101.25){return "E"}
+        else if (wind_deg >=  101.25 && wind_deg < 123.75){return "ESE"}
+        else if (wind_deg >=  123.75 && wind_deg < 146.25){return "SE"}
+        else if (wind_deg >=  146.25 && wind_deg < 168.75){return "SSE"}
+        else if (wind_deg >=  168.75 && wind_deg < 191.25){return "S"}
+        else if (wind_deg >=  191.25 && wind_deg < 213.75){return "SSW"}
+        else if (wind_deg >=  213.75 && wind_deg < 236.25){return "SW"}
+        else if (wind_deg >=  236.25 && wind_deg < 258.75){return "WSW"}
+        else if (wind_deg >=  258.75 && wind_deg < 281.25){return "W"}
+        else if (wind_deg >=  281.25 && wind_deg < 303.75){return "WNW"}
+        else if (wind_deg >=  303.75 && wind_deg < 326.25){return "NW"}
+        else if (wind_deg >=  326.25 && wind_deg < 348.75){return "NNW"}
+    };
+
+    var weather_current_html = function(el, city, time, icon, desc, temp, humid, wind, degree){
         var time_array = convert_time(time);
         var output_html = el.innerHTML  = 
         '<div class="col">'+
@@ -92,8 +113,9 @@ window.onload = function(){
             '<h5 class="text-capitalize">'+desc+'</h5>'+
             '<h4><img src="https://openweathermap.org/img/w/'+icon+'.png"/><span>'+'&nbsp;'+Math.round(temp)+'&nbsp;&deg;C</span></h4>'+
             '<h6>Humidity: '+humid+'%'+
-            '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+
+            '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+' '+'<i class="fa fa-compass fa-lg text-muted"></i>'+' '+convert_deg_direction(degree)+
         '</div>';
+        console.log(degree);
         return output_html;
     };
 
