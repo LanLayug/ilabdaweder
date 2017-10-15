@@ -128,17 +128,10 @@ window.onload = function(){
     };
 
     var bg_color = function(temp){
-        var cool = [
-            '729fcf','3465a4','204a87','003399','3366cc', '6699ff', '2a7fff', 
-            '003371', '14457c', '3655a3', '003371', '0050dc', '0080e8', '0044d8', 
-            '3139ae', '252b82', '3139ae', '1927a6', '1b248f'];
+        var cool = ['19aeff', '0084c8', '005c94', '364e59', '0e232e', '009100', 'ba00ff'];
+        var warm = ['ff4141', 'dc0000', 'b50000', 'ff9900', 'ff6600', 'b88100', '804d00'];
 
-        var warm = [
-            'dd4814', 'e05a2c', 'e46d43', 'e77f5b', '552200', '803300', 'aa4400',
-            'd45500', '502d16', '784421', 'a05a2c', 'c87137', '501616', '782121',
-            'a02c2c', 'c83737'];
-
-        if (temp > 27){
+        if (temp > 28){
             var bg = Math.floor(Math.random()*(warm.length));
             return '#'+warm[bg];
         } else {
