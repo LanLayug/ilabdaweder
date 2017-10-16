@@ -1,32 +1,30 @@
 window.onload = function(){
 /******************   CURRENT WEATHER  *****************************/
     (function(){
-        // create a new request
         var request = new XMLHttpRequest();
-        // cache the url
         var owm_current = "https://api.openweathermap.org/data/2.5/weather?id=1729557&APPID=4be0bc4727ae10cfd65b7027eeb44b7e&units=metric";
-        // do something with the url
         request.open("GET", owm_current, true);
-        // do something with the data
         request.onload = function(){
             if (request.status >= 200 && request.status < 400){
                 var myData = JSON.parse(request.responseText);
                 var city = myData.name;
-                var current_time = myData.dt;
+                var current_time = convert_time(myData.dt);
                 var weather = myData.weather[0].description;
                 var temp = myData.main.temp;
                 var humidity = myData.main.humidity;
-                var wind_speed = myData.wind.speed;
-                var wind_direction = myData.wind.deg;
+                var wind_speed = convert_mps_kph(myData.wind.speed);
+                var wind_direction = convert_deg_direction(myData.wind.deg);
                 var icon = myData.weather[0].icon;
                 var el_current = document.getElementById("weather-current");
                 weather_current_html(el_current, city, current_time, icon, weather, temp, humidity, wind_speed, wind_direction);
             } else {
                 console.log("connection established but server returned an error. Check the URL or your API calls");
+                alert("connection established but server returned an error. Check the URL or your API calls");
             };
         };
         request.onerror = function(){
-            console.log("error connecting to the server. Check the URL");
+            console.log("error connecting to the server. Check your internet connection or the URL");
+            alert("error connecting to the server. Check your internet connection or the URL");
         };
         request.send();
     })();
@@ -49,12 +47,13 @@ window.onload = function(){
                 };
             } else {
                 console.log("connection established but server returned an error. Check the URL or your API calls");
+                alert("connection established but server returned an error. Check the URL or your API calls");
             };
         };
         request.onerror = function(){
-            console.log("error connecting to the server. Check the URL");
+            console.log("error connecting to the server. Check your internet connection or the URL");
+            alert("error connecting to the server. Check your internet connection or the URL");
         };
-        // send request
         request.send();
     })();
 
@@ -103,16 +102,15 @@ window.onload = function(){
     };
 
     var weather_current_html = function(el, city, time, icon, desc, temp, humid, wind, degree){
-        var time_array = convert_time(time);
         var output_html = el.innerHTML  = 
         '<div class="col">'+
             '<h4 class="">'+city+', Pampanga'+'</h4>'+
-            '<h5><span>'+time_array[0]+'</span><small>'+' '+time_array[1]+':'+time_array[2]+' '+time_array[3]+
-            ' '+time_array[4]+' '+time_array[5]+', '+time_array[6]+'</small></h5>'+
+            '<h5><span>'+time[0]+'</span><small>'+'&nbsp;'+time[1]+':'+time[2]+'&nbsp;'+time[3]+
+            ' '+time[4]+'&nbsp;'+time[5]+',&nbsp;'+time[6]+'</small></h5>'+
             '<h5 class="text-capitalize">'+desc+'</h5>'+
             '<h4><img src="https://openweathermap.org/img/w/'+icon+'.png"/><span>'+'&nbsp;'+Math.round(temp)+'&nbsp;&deg;C</span></h4>'+
-            '<h6>Humidity: '+humid+'%'+
-            '<h6>Wind: '+Math.round(convert_mps_kph(wind))+' km/h'+' '+convert_deg_direction(degree)+
+            '<h6>Humidity:&nbsp;'+humid+'%'+
+            '<h6>Wind:&nbsp;'+Math.round(wind)+'&nbsp;km/h'+'&nbsp;'+degree+
         '</div>';
         return output_html;
     };
@@ -120,7 +118,7 @@ window.onload = function(){
     var weather_forecast_html = function(el, date, icon, temp, forecast, bg){
         var output_html = el.innerHTML +=
         '<div class="box text-center pt-4 pb-4 col-6 col-sm-4 col-md-3 col-lg-2" style="background-color:'+bg+'">'+
-            '<h6>'+date[0]+' '+ date[1]+':'+date[2]+' '+date[3]+'</h6>'+
+            '<h6>'+date[0]+'&nbsp;'+ date[1]+':'+date[2]+'&nbsp;'+date[3]+'</h6>'+
             '<img src="https://openweathermap.org/img/w/'+icon+'.png" ontouchstart title="'+forecast+'"/>'+
             '<h6>'+temp+'&nbsp;'+'&deg;C'+'</h6>'+
         '</div>';
